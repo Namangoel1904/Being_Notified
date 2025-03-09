@@ -13,6 +13,9 @@ A holistic learning platform that combines mindfulness, education, and personal 
 - 🎯 **Challenge System**: Complete tasks and earn rewards
 - 🏆 **Leaderboard**: Compete with other learners
 
+
+## Switch to Chat Bot Branch ti access ersonalised train Ollama chatBot
+
 ## Tech Stack
 
 - Frontend: React + TypeScript + Vite
