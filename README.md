@@ -15,6 +15,7 @@ A holistic learning platform that combines mindfulness, education, and personal 
 
 
 ## Switch to Chat Bot Branch to access personalised train Ollama chatBot
+## If you want to access a sentiment Analyser model you can switch to Sentiment Analyser branch
 
 ## Tech Stack
 
