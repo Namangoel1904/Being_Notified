@@ -14,7 +14,7 @@ A holistic learning platform that combines mindfulness, education, and personal 
 - 🏆 **Leaderboard**: Compete with other learners
 
 
-## Switch to Chat Bot Branch ti access ersonalised train Ollama chatBot
+## Switch to Chat Bot Branch to access personalised train Ollama chatBot
 
 ## Tech Stack
 
