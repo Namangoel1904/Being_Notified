@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Anonymous Chat</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4F46E5;
+            --secondary-color: #E5E7EB;
+            --text-primary: #111827;
+            --text-secondary: #6B7280;
+        }
+
+        body {
+            background-color: #F3F4F6;
+            color: var(--text-primary);
+            font-family: system-ui, -apple-system, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 2rem 0;
+        }
+
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 40px;
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+        }
+
+        .form-title {
+            color: var(--text-primary);
+            font-size: 1.875rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .form-control, .form-select {
+            border: 1px solid var(--secondary-color);
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        .form-label {
+            color: var(--text-primary);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color) !important;
+            border: none;
+            padding: 12px 24px;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.1), 0 2px 4px -1px rgba(79, 70, 229, 0.06);
+        }
+
+        .alert {
+            border: none;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { 
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .signin-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        .signin-link a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .signin-link a:hover {
+            text-decoration: underline;
+        }
+
+        .input-group-text {
+            background-color: transparent;
+            border-color: var(--secondary-color);
+        }
+
+        .input-icon {
+            color: var(--text-secondary);
+        }
+
+        .user-field {
+            display: none;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        textarea.form-control {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .role-options {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .role-option {
+            flex: 1;
+            position: relative;
+        }
+
+        .role-option input[type="radio"] {
+            display: none;
+        }
+
+        .role-option label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1.5rem;
+            border: 2px solid var(--secondary-color);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .role-option input[type="radio"]:checked + label {
+            border-color: var(--primary-color);
+            background-color: rgba(79, 70, 229, 0.05);
+        }
+
+        .role-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        .role-option input[type="radio"]:checked + label .role-icon {
+            color: var(--primary-color);
+        }
+
+        .role-title {
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h1 class="form-title">Create Account</h1>
+            
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-danger">
+                            <i class="fas fa-exclamation-circle me-2"></i>
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <form method="POST" action="{{ url_for('signup') }}">
+                <div class="mb-4">
+                    <label for="name" class="form-label">Full Name</label>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="fas fa-user input-icon"></i>
+                        </span>
+                        <input type="text" class="form-control" id="name" name="name" 
+                               required placeholder="Enter your name">
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label for="email" class="form-label">Email address</label>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="fas fa-envelope input-icon"></i>
+                        </span>
+                        <input type="email" class="form-control" id="email" name="email" 
+                               required placeholder="you@example.com">
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label">I want to join as</label>
+                    <div class="role-options">
+                        <div class="role-option">
+                            <input type="radio" id="role-user" name="role" value="user" required>
+                            <label for="role-user">
+                                <i class="fas fa-user-graduate role-icon"></i>
+                                <span class="role-title">Student</span>
+                            </label>
+                        </div>
+                        <div class="role-option">
+                            <input type="radio" id="role-mentor" name="role" value="mentor" required>
+                            <label for="role-mentor">
+                                <i class="fas fa-chalkboard-teacher role-icon"></i>
+                                <span class="role-title">Mentor</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="user-field mb-4">
+                    <label for="degree" class="form-label">Current Degree/Course</label>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="fas fa-graduation-cap input-icon"></i>
+                        </span>
+                        <input type="text" class="form-control" id="degree" name="degree" 
+                               placeholder="e.g., Computer Science, BSc">
+                    </div>
+                </div>
+
+                <div class="user-field mb-4">
+                    <label for="goal" class="form-label">What's your goal?</label>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="fas fa-bullseye input-icon"></i>
+                        </span>
+                        <textarea class="form-control" id="goal" name="goal" 
+                                  placeholder="Tell us what you want to achieve..."></textarea>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label for="password" class="form-label">Password</label>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="fas fa-lock input-icon"></i>
+                        </span>
+                        <input type="password" class="form-control" id="password" name="password" 
+                               required placeholder="Choose a strong password">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">
+                    <i class="fas fa-user-plus me-2"></i>
+                    Create Account
+                </button>
+            </form>
+
+            <div class="signin-link">
+                Already have an account? <a href="{{ url_for('signin') }}">Sign In</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('input[name="role"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const userFields = document.querySelectorAll('.user-field');
+                const degreeInput = document.getElementById('degree');
+                const goalInput = document.getElementById('goal');
+                
+                userFields.forEach(field => {
+                    if (this.value === 'user') {
+                        field.style.display = 'block';
+                        degreeInput.required = true;
+                        goalInput.required = true;
+                    } else {
+                        field.style.display = 'none';
+                        degreeInput.required = false;
+                        goalInput.required = false;
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html> 
